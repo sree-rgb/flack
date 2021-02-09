@@ -1,0 +1,33 @@
+/*
+.mcontents{
+margin:2%;
+height: 100%;
+float:left;
+position:relative;
+margin-left: auto;
+margin-right: auto;
+}
+.topBar{
+	padding: 3% 40%;
+	color:white;
+	background-color: forestgreen;
+}
+.sidebar{
+	float: left;
+	width:10%;
+	margin:.5%;
+}
+#chatbox{
+	float:left;
+}
+
+#chatarea{
+	margin-left: auto;
+	margin-right: auto;
+	position:relative;
+	width:100%;
+	height:100%;
+/*	
+	width: 800px;
+	height:300px;*/
+	/*overflow: auto;*/

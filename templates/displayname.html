@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		
+		<title>Display Name</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}" >
+		<script>
+			document.addEventListener('DOMContentLoaded', () => {
+				const dbutton = document.querySelector('#displaynameButton');
+				dbutton.disabled=true;
+				const dbox = document.querySelector('#dname');
+				const resIndicator=document.querySelector('#response-indicatior')
+
+				dbox.onkeyup  =  () =>  {
+					const dname = dbox.value
+					const request = new XMLHttpRequest();
+					request.open('POST',  '/dnamecheck');
+					request.onload= () => {
+						dbutton.disabled=true;
+						const response  = request.responseText;
+						resIndicator.innerHTML = response;
+						if (dname.length === 0){
+							resIndicator.style.color="black";
+							dbox.className="form-control"
+
+						}
+						else if (response === "False"){
+							resIndicator.style.color="red";
+							dbox.className="form-control border border border-danger"
+							dbutton.disabled=true;
+						}
+						else{
+							resIndicator.style.color="green";
+							dbox.className="form-control border border border-success"
+							dbutton.disabled=false;
+						}
+
+							   
+					};
+					const data = new FormData();
+					data.append('dname', dname);
+					request.send(data);
+				}
+
+				dbutton.onclick  =  () =>  {
+					const dname = dbox.value
+					const request = new XMLHttpRequest();
+					request.open('POST',  '/getdname');
+					request.onload= () => {
+						const response  = request.responseText;
+						resIndicator.innerHTML = response;
+						if (response ===  'success'){
+							location="/"
+						}
+						resIndicator.style.color="black";
+
+
+							   
+					};
+					const data = new FormData();
+					data.append('dname', dname);
+					request.send(data);
+				}
+
+			});
+
+		</script>
+	</head>
+	<body  class="bg-light">
+		<nav class="navbar navbar-expand-lg navbar navbar-light bg-warning">
+			<a class="navbar-brand" href="#">
+			<img src="{{ url_for('static', filename='brand2.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">Flack</a>
+		</nav>
+		<div class="container mx-auto w-75">
+			<div id="response-indicatior" class="d-none">
+			
+			</div>
+			<div class="container m-5">
+				<h1 class="display-4">Enter a Display Name</h1>
+				<p class="lead">You need a display name to make things work.
+				</p>
+			</div>
+			<div class="form-group mt-3">
+			<!--  <label for="dnameBox">Display Name</label> -->
+				<div class="input-group mb-3" id="dnameBox">
+					<input id="dname" type="text" class="form-control" placeholder="JohnDoe" aria-describedby="button-addon2">
+					<div class="input-group-append">
+						<button id="displaynameButton" class="btn btn-outline-secondary" type="button" id="button-addon2">Continue</button>
+					</div>
+				</div>
+			</div>
+		
+	 	</div>
+							
+
+
+		<script src="{{ url_for('static', filename='jquery-3.3.1.slim.min.js') }}"  ></script>
+		<script src="{{ url_for('static', filename='popper.min.js') }}" ></script>
+		<script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
+	</body>
+</html>
